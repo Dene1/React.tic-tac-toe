@@ -1,17 +1,17 @@
 import styles from "./styles.module.css"
 import PropTypes from "prop-types";
 
-export default function FieldLayout({mass}) {
+export default function FieldLayout({createField}) {
     return (
         <div className={styles.component}>
             <div className={styles.container}>
-                {mass}
+                {createField}
             </div>
         </div>
     )
 }
 
 FieldLayout.propTypes = {
-    mass: PropTypes.array
+    createField: PropTypes.array
 }
 

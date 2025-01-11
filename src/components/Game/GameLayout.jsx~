@@ -36,5 +36,4 @@ GameLayout.propTypes = {
     isDraw: PropTypes.bool.isRequired,
     isGameEnded: PropTypes.bool.isRequired,
     currentPlayer: PropTypes.string.isRequired,
-    reset: PropTypes.func.isRequired
 }
