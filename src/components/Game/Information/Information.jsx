@@ -1,12 +1,10 @@
-import PropTypes from "prop-types";
 import React from "react";
 import InformationLayout from "./InformationLayout.jsx";
+import {store} from "../../../store";
 
-export default function Information({
-                                        isDraw,
-                                        isGameEnded,
-                                        currentPlayer,
-                                    }) {
+export default function Information() {
+    const {currentPlayer, isDraw, isGameEnded} = store.getState();
+
     let status
 
     if (isDraw) {
@@ -20,12 +18,6 @@ export default function Information({
     return (
         <InformationLayout status={status}/>
     )
-}
-
-Information.propTypes = {
-    isDraw: PropTypes.bool,
-    isGameEnded: PropTypes.bool,
-    currentPlayer: PropTypes.string,
 }
 
 

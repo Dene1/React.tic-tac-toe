@@ -1,43 +1,37 @@
 import "./App.css"
-import {useState} from "react"
+import {useEffect, useState} from "react"
 import GameLayout from "./components/Game/GameLayout.jsx"
-
-const initialState = [
-    "", "", "",
-    "", "", "",
-    "", "", "",
-]
+import {store} from "./store"
 
 export default function Game() {
-    const [currentPlayer, setCurrentPlayer] = useState("X");
-    const [isGameEnded, setIsGameEnded] = useState(false);
-    const [isDraw, setIsDraw] = useState(false);
-    const [field, setField] = useState(initialState)
+
+    const [localState, setLocalState] = useState(store.getState()); // Локальное
+
+    const setIsGameEnded = (value) => {
+        store.dispatch({type: "SET_IS_GAME_ENDED", payload: value})
+    }
+
+    const setIsDraw = (value) => {
+        store.dispatch({type: "SET_IS_DRAW", payload: value})
+    }
+
+    useEffect(() => {
+        const unsubscribe = store.subscribe(() => {
+            setLocalState(store.getState()); // Обновляем локальное состояние пр
+        });
+        return () => unsubscribe();
+    }, []);
 
     const reset = () => {
-        setIsDraw(false)
-        setIsGameEnded(false)
-        setCurrentPlayer("X")
-        setField([
-            "", "", "",
-            "", "", "",
-            "", "", "",
-        ])
+        setIsGameEnded(false);
+        setIsDraw(false);
+        store.dispatch({
+            type: "RESTART_GAME",
+            payload: localState
+        })
     }
 
     return (
-        <GameLayout
-            field={field}
-            isDraw={isDraw}
-            isGameEnded={isGameEnded}
-            currentPlayer={currentPlayer}
-            setField={setField}
-            setIsDraw={setIsDraw}
-            setIsGameEnded={setIsGameEnded}
-            setCurrentPlayer={setCurrentPlayer}
-            reset={reset}
-        />
+        <GameLayout reset={reset}/>
     )
 }
-
-

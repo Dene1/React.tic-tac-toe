@@ -1,24 +1,56 @@
 import PropTypes from "prop-types";
 import FieldLayout from "./FieldLayout.jsx";
 import checkWin from "../../../utils/helpers/CheckWin.jsx"
+import {useEffect, useState} from "react";
+import {store} from "../../../store.jsx";
 
-export default function Field({field, ...props}) {
+export default function Field() {
+
+    const [localState, setLocalState] = useState(store.getState()); // Локальное
+
+    useEffect(() => {
+        const unsubscribe = store.subscribe(() => {
+            setLocalState(store.getState()); // Обновляем локальное состояние пр
+        });
+        return () => unsubscribe();
+    }, []);
+
+
+    const field = localState.field; // Используем локальное состояние для доступа к данным
+    const currentPlayer = localState.currentPlayer;
+    const isGameEnded = localState.isGameEnded
+
+    const setIsGameEnded = (value) => {
+        store.dispatch({type: "SET_IS_GAME_ENDED", payload: value})
+    }
+
+    const setIsDraw = (value) => {
+        store.dispatch({type: "SET_IS_DRAW", payload: value})
+    }
+
+    const setField = (newField) => {
+        store.dispatch({type: "SET_FIELD", payload: newField})
+    }
+
+    const setCurrentPlayer = (setCurrentPlayer) => {
+        store.dispatch({type: "SET_CURRENT_PLAYER", payload: setCurrentPlayer})
+    }
 
     const handleClick = (index) => {
         const newField = [...field];
-        if (newField[index] === "" && !props.isGameEnded) {
-            newField[index] = props.currentPlayer
-            props.setField(newField)
+        if (newField[index] === "" && !isGameEnded) {
+            newField[index] = currentPlayer
+            setField(newField)
             const winner = checkWin(newField)
             if (winner) {
-                return props.setIsGameEnded(true)
+                return setIsGameEnded(true)
             } else {
                 const isDraw = !newField.includes("");
                 if (isDraw) {
-                    props.setIsDraw(true);
-                    props.setIsGameEnded(true);
+                    setIsDraw(true);
+                    setIsGameEnded(true);
                 } else {
-                    props.setCurrentPlayer(props.currentPlayer === "X" ? "O" : "X");
+                    setCurrentPlayer(currentPlayer === "X" ? "O" : "X");
                 }
             }
         }
@@ -31,14 +63,4 @@ export default function Field({field, ...props}) {
     return (
         <FieldLayout createField={createField}/>
     )
-}
-
-Field.propTypes = {
-    field: PropTypes.array,
-    setField: PropTypes.func.isRequired,
-    currentPlayer: PropTypes.string,
-    isGameEnded: PropTypes.bool,
-    setIsDraw: PropTypes.func.isRequired,
-    setIsGameEnded: PropTypes.func,
-    setCurrentPlayer: PropTypes.func.isRequired,
 }
