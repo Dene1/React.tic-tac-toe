@@ -1,6 +1,6 @@
 import React from "react";
 import InformationLayout from "./InformationLayout.jsx";
-import {store} from "../../../store";
+import {store} from "../../../redux/store.js";
 
 export default function Information() {
     const {currentPlayer, isDraw, isGameEnded} = store.getState();

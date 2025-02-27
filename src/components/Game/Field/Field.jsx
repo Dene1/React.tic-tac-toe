@@ -1,38 +1,33 @@
 import FieldLayout from "./FieldLayout.jsx";
 import checkWin from "../../../utils/helpers/CheckWin.jsx"
-import {useEffect, useState} from "react";
-import {store} from "../../../store.jsx";
+import {useAppState} from "../../../redux/useAppState.js";
+import {
+    setCurrentPlaye,
+    setDraw,
+    setFields,
+    setIGameEnded,
+} from "../../../utils/actions/actions.js";
 
 export default function Field() {
 
-    const [localState, setLocalState] = useState(store.getState()); // Локальное
+    const {state, dispatch} = useAppState();
+    const {field, currentPlayer, isGameEnded} = state
 
-    useEffect(() => {
-        const unsubscribe = store.subscribe(() => {
-            setLocalState(store.getState()); // Обновляем локальное состояние пр
-        });
-        return () => unsubscribe();
-    }, []);
-
-
-    const field = localState.field; // Используем локальное состояние для доступа к данным
-    const currentPlayer = localState.currentPlayer;
-    const isGameEnded = localState.isGameEnded
 
     const setIsGameEnded = (value) => {
-        store.dispatch({type: "SET_IS_GAME_ENDED", payload: value})
+        dispatch(setIGameEnded(value));
     }
 
     const setIsDraw = (value) => {
-        store.dispatch({type: "SET_IS_DRAW", payload: value})
+        dispatch(setDraw(value))
     }
 
-    const setField = (newField) => {
-        store.dispatch({type: "SET_FIELD", payload: newField})
+    const setField = (value) => {
+        dispatch(setFields(value))
     }
 
-    const setCurrentPlayer = (setCurrentPlayer) => {
-        store.dispatch({type: "SET_CURRENT_PLAYER", payload: setCurrentPlayer})
+    const setCurrentPlayer = (value) => {
+        dispatch(setCurrentPlaye(value))
     }
 
     const handleClick = (index) => {

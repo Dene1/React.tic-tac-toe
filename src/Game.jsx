@@ -1,37 +1,9 @@
 import "./App.css"
-import {useEffect, useState} from "react"
 import GameLayout from "./components/Game/GameLayout.jsx"
-import {store} from "./store"
 
 export default function Game() {
 
-    const [localState, setLocalState] = useState(store.getState()); // Локальное
-
-    const setIsGameEnded = (value) => {
-        store.dispatch({type: "SET_IS_GAME_ENDED", payload: value})
-    }
-
-    const setIsDraw = (value) => {
-        store.dispatch({type: "SET_IS_DRAW", payload: value})
-    }
-
-    useEffect(() => {
-        const unsubscribe = store.subscribe(() => {
-            setLocalState(store.getState()); // Обновляем локальное состояние пр
-        });
-        return () => unsubscribe();
-    }, []);
-
-    const reset = () => {
-        setIsGameEnded(false);
-        setIsDraw(false);
-        store.dispatch({
-            type: "RESTART_GAME",
-            payload: localState
-        })
-    }
-
     return (
-        <GameLayout reset={reset}/>
+        <GameLayout/>
     )
 }
