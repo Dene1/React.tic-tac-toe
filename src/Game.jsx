@@ -1,9 +1,21 @@
-import "./App.css"
-import GameLayout from "./components/Game/GameLayout.jsx"
+import {GameLayout} from "./components/Game/GameLayout.jsx";
+import {reset} from "./reducer/actions/actions.js";
+import {Component} from "react";
+import {connect} from "react-redux";
 
-export default function Game() {
+class Game extends Component {
 
-    return (
-        <GameLayout/>
-    )
+    render() {
+        return (
+            <GameLayout resetGame={this.props.resetGame}/>
+        )
+    }
 }
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        resetGame: () => dispatch(reset())
+    }
+}
+
+export default connect(null, mapDispatchToProps)(Game);

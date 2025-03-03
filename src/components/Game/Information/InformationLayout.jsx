@@ -1,16 +1,13 @@
-import PropTypes from "prop-types";
+import {Component} from "react";
 
-export default function InformationLayout({status}) {
-    return (
-        <>
-            <h1>Крестики - Нолики</h1>
-            <div>{status}</div>
-            <br/>
-        </>
-    )
+export class InformationLayout extends Component {
+    render() {
+        return (
+            <>
+                <h1>Крестики - Нолики</h1>
+                <div>{this.props.status}</div>
+                <br/>
+            </>
+        )
+    }
 }
-
-InformationLayout.propTypes = {
-    status: PropTypes.string,
-}
-

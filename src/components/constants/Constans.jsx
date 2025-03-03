@@ -1,5 +1,14 @@
-export default const WIN_PATTERNS = [
+const WIN_PATTERNS = [
     [0, 1, 2], [3, 4, 5], [6, 7, 8], // Варианты побед по горизонтали
     [0, 3, 6], [1, 4, 7], [2, 5, 8], // Варианты побед по вертикали
     [0, 4, 8], [2, 4, 6] // Варианты побед по диагонали
 ];
+
+export default WIN_PATTERNS;
+
+
+export const SET_CURRENT_PLAYER = "SET_CURRENT_PLAYER";
+export const SET_FIELD = "SET_FIELD";
+export const SET_GAME_ENDED = "SET_GAME_ENDED";
+export const SET_DRAW = "SET_DRAW";
+export const RESET = "RESET";

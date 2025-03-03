@@ -1,23 +1,28 @@
-import React from "react";
-import InformationLayout from "./InformationLayout.jsx";
-import {store} from "../../../redux/store.js";
+import {InformationLayout} from "./InformationLayout.jsx";
+import {connect} from "react-redux";
+import {Component} from "react";
 
-export default function Information() {
-    const {currentPlayer, isDraw, isGameEnded} = store.getState();
+export class Information extends Component {
+    render() {
+        let status
 
-    let status
-
-    if (isDraw) {
-        status = "Ничья"
-    } else if (isGameEnded) {
-        status = `Игра завершена. Победа: ${currentPlayer}`
-    } else {
-        status = `Ходит: ${currentPlayer}`
+        if (this.props.isDraw) {
+            status = "Ничья"
+        } else if (this.props.isGameEnded) {
+            status = `Игра завершена. Победа: ${this.props.currentPlayer}`
+        } else {
+            status = `Ходит: ${this.props.currentPlayer}`
+        }
+        return (
+            <InformationLayout status={status}/>
+        )
     }
-
-    return (
-        <InformationLayout status={status}/>
-    )
 }
 
+const mapStateToProps = (state) => ({
+    currentPlayer: state.currentPlayer,
+    isDraw: state.isDraw,
+    isGameEnded: state.isGameEnded,
+})
 
+export default connect(mapStateToProps)(Information)

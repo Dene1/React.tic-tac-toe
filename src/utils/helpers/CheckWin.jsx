@@ -1,4 +1,4 @@
-import WIN_PATTERNS from "../../components/constans/Constans.jsx";
+import WIN_PATTERNS from "../../components/constants/Constans.jsx";
 
 export default function checkWin(field) {
     for (const item of WIN_PATTERNS) {
