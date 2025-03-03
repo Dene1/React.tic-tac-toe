@@ -5,9 +5,12 @@ import {
     SET_DRAW,
     SET_FIELD,
     SET_GAME_ENDED
-} from "../utils/actions/actions.js";
+} from "../components/constants/Constans.jsx"
 
-const appReducer = (state, {type, payload}) => {
+
+export const appReducer = (state = initialState, action) => {
+    console.log("Reducer получил action:", action);
+    const {type, payload} = action;
 
     switch (type) {
         case SET_CURRENT_PLAYER:
@@ -15,7 +18,8 @@ const appReducer = (state, {type, payload}) => {
         case SET_FIELD:
             return {...state, field: payload}
         case RESET:
-            return {...initialState}
+            console.log("RESET сработал!");
+            return initialState
         case SET_GAME_ENDED:
             return {...state, isGameEnded: payload}
         case SET_DRAW:
@@ -25,6 +29,3 @@ const appReducer = (state, {type, payload}) => {
     }
 }
 
-export const reducer = (state = initialState, action) => {
-    return appReducer(state, action);
-}

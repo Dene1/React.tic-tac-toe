@@ -1,18 +1,20 @@
 import FieldLayout from "./FieldLayout.jsx";
 import checkWin from "../../../utils/helpers/CheckWin.jsx"
-import {useAppState} from "../../../redux/useAppState.js";
 import {
-    setCurrentPlaye,
     setDraw,
     setFields,
     setIGameEnded,
-} from "../../../utils/actions/actions.js";
+    setPlayer,
+} from "../../../reducer/actions/actions.js";
+import {useDispatch, useSelector} from "react-redux";
 
 export default function Field() {
 
-    const {state, dispatch} = useAppState();
-    const {field, currentPlayer, isGameEnded} = state
+    const dispatch = useDispatch()
 
+    const field = useSelector(state => state.field)
+    const currentPlayer = useSelector(state => state.currentPlayer)
+    const isGameEnded = useSelector(state => state.isGameEnded)
 
     const setIsGameEnded = (value) => {
         dispatch(setIGameEnded(value));
@@ -27,7 +29,7 @@ export default function Field() {
     }
 
     const setCurrentPlayer = (value) => {
-        dispatch(setCurrentPlaye(value))
+        dispatch(setPlayer(value))
     }
 
     const handleClick = (index) => {
