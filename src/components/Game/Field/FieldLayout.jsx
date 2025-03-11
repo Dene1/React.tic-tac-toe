@@ -1,17 +1,15 @@
-import styles from "./styles.module.css"
-import PropTypes from "prop-types";
+import {Component} from "react";
 
-export default function FieldLayout({createField}) {
-    return (
-        <div className={styles.component}>
-            <div className={styles.container}>
-                {createField}
+export class FieldLayout extends Component {
+    render() {
+        return (
+            <div className="grid flex-col items-center justify-center w-full">
+                <div
+                    className="grid grid-rows-3 grid-cols-3 gap-1
+                 text-2xl rounded-2xl text-center bg-neutral-700 p-2 h-80 w-80">
+                    {this.props.createField}
+                </div>
             </div>
-        </div>
-    )
+        )
+    }
 }
-
-FieldLayout.propTypes = {
-    createField: PropTypes.array
-}
-

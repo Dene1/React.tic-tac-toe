@@ -1,43 +1,21 @@
-import "./App.css"
-import {useState} from "react"
-import GameLayout from "./components/Game/GameLayout.jsx"
+import {GameLayout} from "./components/Game/GameLayout.jsx";
+import {reset} from "./reducer/actions/actions.js";
+import {Component} from "react";
+import {connect} from "react-redux";
 
-const initialState = [
-    "", "", "",
-    "", "", "",
-    "", "", "",
-]
+class Game extends Component {
 
-export default function Game() {
-    const [currentPlayer, setCurrentPlayer] = useState("X");
-    const [isGameEnded, setIsGameEnded] = useState(false);
-    const [isDraw, setIsDraw] = useState(false);
-    const [field, setField] = useState(initialState)
-
-    const reset = () => {
-        setIsDraw(false)
-        setIsGameEnded(false)
-        setCurrentPlayer("X")
-        setField([
-            "", "", "",
-            "", "", "",
-            "", "", "",
-        ])
+    render() {
+        return (
+            <GameLayout resetGame={this.props.resetGame}/>
+        )
     }
-
-    return (
-        <GameLayout
-            field={field}
-            isDraw={isDraw}
-            isGameEnded={isGameEnded}
-            currentPlayer={currentPlayer}
-            setField={setField}
-            setIsDraw={setIsDraw}
-            setIsGameEnded={setIsGameEnded}
-            setCurrentPlayer={setCurrentPlayer}
-            reset={reset}
-        />
-    )
 }
 
+const mapDispatchToProps = (dispatch) => {
+    return {
+        resetGame: () => dispatch(reset())
+    }
+}
 
+export default connect(null, mapDispatchToProps)(Game);
