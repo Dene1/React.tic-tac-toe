@@ -81,10 +81,6 @@ box-shadow: none;
 background-color: transparent;
 cursor: pointer;
 opacity: 0.4;
-
-    :hover {
-        transform: scale(1.2);
-    }
 }
 
 
