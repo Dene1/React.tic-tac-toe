@@ -76,11 +76,11 @@ button:active {
 }
 
 .reset {
-border: none;
-box-shadow: none;
-background-color: transparent;
-cursor: pointer;
-opacity: 0.4;
+    border: none;
+    box-shadow: none;
+    background-color: transparent;
+    cursor: pointer;
+    opacity: 0.4;
 }
 
 
